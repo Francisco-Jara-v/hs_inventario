@@ -84,14 +84,6 @@ Este proyecto fue desarrollado con un enfoque **educativo y profesional**, para:
 2. Servir como práctica real de desarrollo con Laravel.
 3. Aplicar herramientas de trabajo en equipo (Git, Trello, Notion).
 
----
-
-## 📘 Documentación
-
-Toda la documentación técnica del proyecto (arquitectura, base de datos, bitácora y tareas) se encuentra en **Notion**.
-
-> 🔗 *(Puedes agregar aquí el enlace público a tu Notion si lo haces visible)*  
-> Ejemplo: [Documentación del proyecto en Notion](https://www.notion.so/...)
 
 ---
 
@@ -109,7 +101,7 @@ Flujo de trabajo:
 
 ## 👤 Autor
 
-**Chito**  
+**Francisco Jara**  
 _Técnico en Informática — Desarrollador en formación_  
 
 📧 [Agrega tu correo o LinkedIn si quieres]  
@@ -119,7 +111,7 @@ _Técnico en Informática — Desarrollador en formación_
 
 ## ⚖️ Licencia
 
-© 2025 Chito.  
+© 2025 Francisco Jara.  
 Este proyecto fue desarrollado con fines educativos y de demostración.  
 No se permite su uso comercial sin autorización expresa del autor.
 
