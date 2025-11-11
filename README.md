@@ -104,8 +104,7 @@ Flujo de trabajo:
 **Francisco Jara**  
 _Técnico en Informática — Desarrollador en formación_  
 
-📧 [Agrega tu correo o LinkedIn si quieres]  
-💻 [Tu GitHub Profile URL]
+
 
 ---
 
