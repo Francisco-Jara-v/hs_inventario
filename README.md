@@ -1,6 +1,6 @@
 # 🧰 Sistema de Arriendo Hidráulico
 
-Aplicación web desarrollada con **Laravel 10** y **FilamentPHP**, diseñada para gestionar el arriendo de equipos hidráulicos, clientes y contratos dentro de una empresa del rubro.
+Aplicación web desarrollada con **Laravel 12** y **FilamentPHP**, diseñada para gestionar el arriendo de equipos hidráulicos, clientes y contratos dentro de una empresa del rubro.
 
 Este sistema surge como una solución a la falta de control en los contratos y el inventario de equipos, reemplazando procesos manuales en Word por una plataforma digital centralizada.
 
@@ -21,7 +21,7 @@ Este sistema surge como una solución a la falta de control en los contratos y e
 
 | Tipo | Tecnología |
 |------|-------------|
-| Backend | Laravel 10 (PHP 8.x) |
+| Backend | Laravel 12 (PHP 8.x) |
 | Frontend | FilamentPHP + Tailwind CSS |
 | Base de datos | MySQL |
 | ORM | Eloquent |
