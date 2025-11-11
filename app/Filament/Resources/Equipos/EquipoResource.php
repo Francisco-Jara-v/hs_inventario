@@ -39,39 +39,9 @@ class EquipoResource extends Resource
         return EquipoInfolist::configure($schema);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('Nombre_equipos')->label('Tipo'),
-                TextColumn::make('Descripcion'),
-                TextColumn::make('Cantidad_total'),  
-            ])
-            ->actions([
-                Action::make('ver')
-                    ->label('Ver')
-                    ->button() // opcional, para que se vea como botón
-                    ->url(fn($record) => match($record->Nombre_equipos) {
-                        'Bomba' => route('filament.admin.resources.bombas.index'),
-                        'Cilindro' => route('filament.admin.resources.cilindros.index'),
-                        'Cabezal' => route('filament.admin.resources.cabezales.index'),
-                        'Dado' => route('filament.admin.resources.dados.index'),
-                        'Pistola' => route('filament.admin.resources.pistolas.index'),
-                        default => '#',
-                    }),
-                ])
-                ->recordUrl(fn($record) => match($record->Nombre_equipos) {
-                    'Bomba' => route('filament.admin.resources.bombas.index'),
-                    'Cilindro' => route('filament.admin.resources.cilindros.index'),
-                    'Cabezal' => route('filament.admin.resources.cabezales.index'),
-                    'Dado' => route('filament.admin.resources.dados.index'),
-                    'Pistola' => route('filament.admin.resources.pistolas.index'),
-                    default => null,
-                })
-            ->filters([
-                //
-            ])
-            ->defaultSort('Nombre_equipos');
+        return EquiposTable::configure($table);
     }
 
     public static function getRelations(): array
