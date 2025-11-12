@@ -37,12 +37,12 @@ class Bomba extends Model
     });
 
 static::deleted(function ($bomba) {
-    $tipoEquipo = \App\Models\Equipo::find($bomba->Id_Equipo);
-
-    if ($tipoEquipo) {
-        $tipoEquipo->Cantidad_total = max(0, ($tipoEquipo->Cantidad_total ?? 0) - 1);
-        
-        $tipoEquipo->save();
+    $tipo = \App\Models\Equipo::find($bomba->Id_Equipo);
+    if ($tipo) {
+        // Recontar cuántos equipos quedan realmente en la tabla
+        $cantidad = \App\Models\Bomba::where('Id_Equipo', $tipo->ID_Equipos)->count();
+        $tipo->Cantidad_total = $cantidad;
+        $tipo->save();
     }
 });
 }
