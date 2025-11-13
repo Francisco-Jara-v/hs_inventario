@@ -17,5 +17,6 @@ class Cliente extends Model
         'Telefono',
         'Correo',
         'Direccion',
+        'Ciudad'
     ];
 }

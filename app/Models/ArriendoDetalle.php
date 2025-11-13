@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ArriendoDetalle extends Model
 {
+    use HasFactory;
     protected $table = 'arriendo_detalle';
     protected $fillable = [
-        'Contrato', 'Equipo_id', 'Equipo_detalle_id', 'Estado', 'Precio_equipo', 'Garantia'
+        'Contrato',
+        'Equipo_id', 
+        'Equipo_detalle_id', 
+        'Estado', 
+        'Precio_equipo', 
+        'Garantia'
     ];
 
     public function arriendo()
@@ -21,6 +28,9 @@ class ArriendoDetalle extends Model
     {
         return $this->belongsTo(Equipo::class, 'Equipo_id', 'ID_Equipos');
     }
+
+
+
 
     protected static function booted()
     {

@@ -21,6 +21,8 @@ class ClienteForm
                     ->default(null),
                 TextInput::make('Direccion')
                     ->default(null),
+                TextInput::make('Ciudad')
+                    ->default(null),
             ]);
     }
 }

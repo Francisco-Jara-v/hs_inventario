@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 class UltimoContrato extends BaseWidget
 {
     protected static ?string $heading = 'Arriendos en Curso';
-
+    protected int|string|array $columnSpan = 'full';
     protected function getTableQuery(): Builder
     {
         return Arriendo::query()

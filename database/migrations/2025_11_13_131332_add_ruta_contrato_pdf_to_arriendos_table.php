@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arriendo_detalles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('arriendos', function (Blueprint $table) {
+            $table->string('ruta_contrato_pdf')->nullable()->after('Precio_total');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
-        Schema::dropIfExists('arriendo_detalles');
+        Schema::table('arriendos', function (Blueprint $table) {
+            $table->dropColumn('ruta_contrato_pdf');
+        });
     }
 };

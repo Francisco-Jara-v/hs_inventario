@@ -2,12 +2,18 @@
 
 namespace App\Filament\Resources\Arriendos\Tables;
 
+use App\Filament\Resources\Arriendos\Schemas\ArriendoForm;
+use Carbon\Carbon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+
+use App\Filament\Resources\Arriendos\Tables\Action;
+use Storage;
 
 class ArriendosTable
 {
@@ -52,8 +58,52 @@ class ArriendosTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                \Filament\Actions\Action::make('ver_pdf')
+                ->label('Ver contrato')
+                
+                ->icon('heroicon-o-eye')
+                ->color('gray')
+                ->url(fn($record) => $record
+                ->ruta_contrato_pdf
+                    ? Storage::url($record->ruta_contrato_pdf)
+                    : null,
+                true)
+                ->openUrlInNewTab()
+                ->visible(fn($record) => !empty($record->ruta_contrato_pdf)),
+                \Filament\Actions\Action::make('finalizar')
+                ->label('Finalizar')
+                ->icon('heroicon-o-check-circle')
+                ->color('warning')
+                ->requiresConfirmation()
+                ->visible(fn($record) => $record->Estado !== 'Finalizado')
+                ->action(function($record){
+                    $ahoraChile = Carbon::now('America/Santiago');
+                    $record->update(['Estado' => 'Finalizado',
+                    'Fecha_fin' => $ahoraChile
+                    ]);
+
+                    $detalles = $record
+                    ->detalles()
+                    ->get()
+                    ->map(fn($d) =>[
+                        'Precio_equipo' => $d
+                        ->Precio_equipo,
+                    ])
+                    ->toArray();
+
+                    
+                    $nuevototal = ArriendoForm::calcularTotalDatos($detalles,$record->Fecha_inicio, $ahoraChile);
+
+                    $record->update([
+                    'Precio_total' => $nuevototal
+                    ]);
+
+                    Notification::make()
+                    ->title('Contrato Finalizado')
+                    ->success()
+                    ->body("El contrato #{$record->Contrato} ha sido marcado como finalizado")
+                    ->send();
+                }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

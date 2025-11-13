@@ -25,6 +25,8 @@ class ClientesTable
                     ->searchable(),
                 TextColumn::make('Direccion')
                     ->searchable(),
+                TextColumn::make('Ciudad')
+                    ->searchable(),
             ])
             ->filters([
                 //

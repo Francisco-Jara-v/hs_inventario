@@ -10,23 +10,15 @@ use App\Filament\Resources\Arriendos\Schemas\ArriendoInfolist;
 use App\Filament\Resources\Arriendos\Tables\ArriendosTable;
 use App\Filament\Resources\Arriendos\Schemas\ArriendoForm;
 use App\Models\Arriendo;
-use App\Models\Cliente;
-use App\Models\Equipo;
-use App\Models\Dado;
-use App\Models\Bomba;
-use App\Models\Cilindro;
-use App\Models\Cabezal;
-use App\Models\Pistola;
+
 use BackedEnum;
+
+use Filament\Forms;
 use Filament\Support\Icons\Heroicon;
-use Filament\Forms\Components\Select;
+
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Grid;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms;
-
+use Carbon\Carbon;
 use Filament\Schemas\Components\Form;
 
 
@@ -40,11 +32,14 @@ class ArriendoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Contrato';
 
-    public static function form(Schema $schema): Schema
-    {
-        return ArriendoForm::configure($schema);
-    }
 
+    public static function form(Schema $schema): Schema
+{
+    
+    $schema = ArriendoForm::configure($schema);
+
+return $schema;
+}
     public static function infolist(Schema $schema): Schema
     {
         return ArriendoInfolist::configure($schema);
