@@ -1,0 +1,11 @@
+body {
+    background-image: url("/images/18791.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* opcional: aclarar el fondo detrás de las cards */
+main {
+    background-color: rgba(255, 255, 255, 0.9);
+}

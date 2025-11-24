@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Filament\Resources\Equipos\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
+use Filament\Tables\Actions;
+use Filament\Tables\Action;
+use Filament\Tables\Columns\TextColumn;
+use Symfony\Component\Console\Color;
+
+class EquiposTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('Nombre_equipos')->label('Tipo'),
+                TextColumn::make('Descripcion'),
+                //TextColumn::make('Cantidad_total'),  
+            ])
+            ->actions([
+                ViewAction::make('ver')
+                    ->label('Ver')
+                    
+                    ->url(fn($record) => match($record->Nombre_equipos) {
+                        'Bomba' => route('filament.admin.resources.bombas.index'),
+                        'Cilindro' => route('filament.admin.resources.cilindros.index'),
+                        'Cabezal' => route('filament.admin.resources.cabezales.index'),
+                        'Dado' => route('filament.admin.resources.dados.index'),
+                        'Pistola' => route('filament.admin.resources.pistolas.index'),
+                        default => '#',
+                    }),
+                ])
+                ->recordUrl(fn($record) => match($record->Nombre_equipos) {
+                    'Bomba' => route('filament.admin.resources.bombas.index'),
+                    'Cilindro' => route('filament.admin.resources.cilindros.index'),
+                    'Cabezal' => route('filament.admin.resources.cabezales.index'),
+                    'Dado' => route('filament.admin.resources.dados.index'),
+                    'Pistola' => route('filament.admin.resources.pistolas.index'),
+                    'Llave torque' => route('filament.admin.resources.llaves-torques.index'),
+                    'Mangueras' => route('filament.admin.resources.mangueras.index'),
+                    default => null,
+                })
+            ->filters([
+                //
+            ])
+            ->defaultSort('Nombre_equipos');
+    }
+}
