@@ -28,7 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            
+            ->brandLogo(asset('images/a.png'))
+            ->brandLogoHeight('54px')
+            ->brandName('HS Inventario')
+            ->favicon(asset('images/a.png'))
 
             ->globalSearch(false)
             ->login()
