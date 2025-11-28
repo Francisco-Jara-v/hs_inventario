@@ -37,7 +37,7 @@ class FacturaComprasTable
                     ->label('Proveedor')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('monto')
+                TextColumn::make('total')
                     ->label('$ Monto')
                     ->sortable()
                     ->searchable(),

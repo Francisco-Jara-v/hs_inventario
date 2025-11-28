@@ -32,4 +32,9 @@ class FacturaCompra extends Model
     {
         return $this->hasMany(FacturasCompraDetalle::class, 'factura_compra_id');
     }
+
+    public function getPeriodoAttribute()
+    {
+        return \Carbon\Carbon::parse($this->fecha_emision)->translatedFormat('F Y');
+    }
 }
