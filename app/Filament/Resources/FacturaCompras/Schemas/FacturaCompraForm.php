@@ -16,6 +16,23 @@ use function Laravel\Prompts\textarea;
 
 class FacturaCompraForm
 {
+    
+public static function recalcularTotales(callable $set, callable $get): void
+{
+    $detalles = $get('detalles') ?? [];
+
+    $neto = collect($detalles)->sum(fn ($item) =>
+        (float) ($item['subtotal'] ?? 0)
+    );
+
+    $iva = $neto * 0.19;
+    $total = $neto + $iva;
+
+    $set('neto', round($neto, 0));
+    $set('iva', round($iva, 0));
+    $set('total', round($total, 0));
+}
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -79,104 +96,92 @@ class FacturaCompraForm
 
                 //Sección con detalles de la factura
                 Section::make('Detalle de Factura')
-    ->schema([
-        Repeater::make('detalles')
-    ->label('Líneas de Detalle')
+                    ->schema([
+Repeater::make('detalles')
     ->relationship()
-    ->live()
+    ->reactive()
+    ->afterStateUpdated(function ($state, $set) {
+
+        $neto = collect($state)->sum(fn ($item) =>
+            (float) ($item['subtotal'] ?? 0)
+        );
+
+        $iva = $neto * 0.19;
+        $total = $neto + $iva;
+
+        // ⬅⬅⬅ CLAVE
+        $set('../../neto', round($neto));
+        $set('../../iva', round($iva));
+        $set('../../total', round($total));
+    })
     ->schema([
         TextInput::make('descripcion')
-            ->label('Descripción')
             ->required(),
 
         TextInput::make('cantidad')
             ->numeric()
             ->default(1)
-            ->reactive()
+            ->lazy()
             ->afterStateUpdated(function ($state, $set, $get) {
-                $set('subtotal', ($state * $get('precio_unitario')) - $get('descuento'));
-            })
-            ->required(),
+                $set('subtotal', $state * ($get('precio_unitario') ?? 0));
+            }),
 
         TextInput::make('precio_unitario')
             ->numeric()
-            ->default(0)
-            ->reactive()
+            ->lazy()
             ->afterStateUpdated(function ($state, $set, $get) {
-                $set('subtotal', ($get('cantidad') * $state) - $get('descuento'));
-            })
-            ->required(),
-
-        TextInput::make('descuento')
-            ->numeric()
-            ->default(0)
-            ->reactive()
-            ->afterStateUpdated(function ($state, $set, $get) {
-                $set('subtotal', ($get('cantidad') * $get('precio_unitario')) - $state);
+                $set('subtotal', ($get('cantidad') ?? 1) * $state);
             }),
 
         TextInput::make('subtotal')
             ->numeric()
-            ->default(0)
-            ->disabled()        // ← evita que el usuario lo cambie
-            ->dehydrated()      // ← sí lo guardamos en BD
-            ->required(),
+            ->disabled()
+            ->dehydrated(),
     ])
-    ->columns(2)
-    ->reactive()
-    ->afterStateUpdated(function ($state, $set) {
-        // Recalcular totales generales
-        $neto = 0;
-
-        foreach ($state as $item) {
-            $neto += $item['subtotal'] ?? 0;
-        }
-
-        $set('neto', $neto);
-        $set('iva', $neto * 0.19);
-        $set('total', ($neto * 1.19) + ($state['exento'] ?? 0));
-    })
+    ->columns(4)
     ->defaultItems(1)
-    ->reorderable()
-    ->collapsible(),]),
-
-Section::make('Montos Totales')
-->schema([
-    TextInput::make('neto')
-        ->numeric()
-        ->required()
-        ->disabled()
-        ->dehydrated(),
-
-    TextInput::make('iva')
-        ->numeric()
-        ->required()
-        ->disabled()
-        ->dehydrated(),
-
-    TextInput::make('exento')
-        ->numeric()
-        ->default(0)
-        ->reactive()
-        ->afterStateUpdated(function ($state, $set, $get) {
-            $set('total', $get('neto') + $get('iva') + $state);
-        }),
-
-    TextInput::make('total')
-        ->numeric()
-        ->required()
-        ->disabled()
-        ->dehydrated(),
-])
-->columns(4),
-
-                Section::make('')
-                ->schema([
-                    Textarea::make('observaciones')
-                ])
-
-            ])
+    ->addAction(function (callable $set, callable $get) {
+        $neto = collect($get('detalles'))->sum(fn ($item) =>
+            (float) ($item['subtotal'] ?? 0)
             
-            ->Columns(1);
-    }
+        );
+        $set('neto', round($neto));
+        $iva = $neto * 0.19;
+        $total = $neto + $iva;          
+        $set('iva', round($iva));
+        $set('total', round($total));
+    })]),
+
+    Section::make('Montos Totales')
+    ->schema([
+        TextInput::make('neto')
+            ->numeric()
+            ->disabled()
+            ->dehydrated(),
+
+        TextInput::make('iva')
+            ->numeric()
+            ->disabled()
+            ->dehydrated(),
+
+        TextInput::make('total')
+            ->numeric()
+            ->disabled()
+            ->dehydrated(),
+    ])
+    
+             //Sección con montos totales
+
+    
+    ->columns(4),
+                
+                            Section::make('')
+                            ->schema([
+                                Textarea::make('observaciones')
+                            ])
+                            
+                        ])
+                            
+                        ->Columns(1);
+                }
 }
