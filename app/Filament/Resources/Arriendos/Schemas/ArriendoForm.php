@@ -81,7 +81,8 @@ class ArriendoForm
                     TextInput::make('Rut')->disabled(),
                     TextInput::make('Direccion')->disabled(),
                     TextInput::make('Ciudad')->disabled(),
-                ])->columnSpan(2),
+                ])
+                ->columns(2),
 
                 // 🟩 DETALLE CONTRATO
                 Section::make('Detalle del contrato')->schema([
@@ -102,10 +103,12 @@ class ArriendoForm
                     TextInput::make('Guia_Despacho')->required(),
 
                     TextInput::make('Estado')
-                       	->default ('En curso')
+                    ->default ('En curso')
 			->disabled(),
 			
-                ])->columnSpan(2),
+                ])
+                ->columns(2)
+                ->columnSpan(2),
                 // 🟨 OBSERVACIONES
             Section::make('Observaciones')->schema([
                 Textarea::make('Observaciones')->rows(3),
@@ -198,6 +201,7 @@ class ArriendoForm
                     ])
                     ->afterStateUpdated(fn($state, $set, $get) => self::calcularTotal($get, $set))
                     ->addActionLabel('Agregar equipo')
+                    ->columns(2)
                     ->addAction(function (callable $set, callable $get) {
 
                         $detalles = $get('detalles') ?? [];
@@ -219,7 +223,9 @@ class ArriendoForm
                     
                         $set('Precio_total', $totalEquipos * $dias);
                 }),
-            ])->columnSpan(4)
+            ])
+            
+            ->columnSpan(4)
             ->extraAttributes(['class' => 'bg-blue-50 rounded-xl shadow-sm p-4 border border-blue-100'])
             ->collapsible(),
 
