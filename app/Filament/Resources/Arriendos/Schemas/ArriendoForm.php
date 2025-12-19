@@ -59,7 +59,7 @@ class ArriendoForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-            Grid::make(2)->schema([
+            
 
                 // 🟦 DATOS DEL CLIENTE
 
@@ -81,7 +81,7 @@ class ArriendoForm
                     TextInput::make('Rut')->disabled(),
                     TextInput::make('Direccion')->disabled(),
                     TextInput::make('Ciudad')->disabled(),
-                ])->columnSpan(1),
+                ])->columnSpan(2),
 
                 // 🟩 DETALLE CONTRATO
                 Section::make('Detalle del contrato')->schema([
@@ -105,12 +105,12 @@ class ArriendoForm
                        	->default ('En curso')
 			->disabled(),
 			
-                ])->columnSpan(1),
+                ])->columnSpan(2),
                 // 🟨 OBSERVACIONES
             Section::make('Observaciones')->schema([
                 Textarea::make('Observaciones')->rows(3),
             ])->collapsible()
-            ->columnSpan(2),
+            ->columnSpan(4),
 
             
 
@@ -198,8 +198,28 @@ class ArriendoForm
                     ])
                     ->afterStateUpdated(fn($state, $set, $get) => self::calcularTotal($get, $set))
                     ->addActionLabel('Agregar equipo')
-                    ,
-            ])->columnSpan(2)
+                    ->addAction(function (callable $set, callable $get) {
+
+                        $detalles = $get('detalles') ?? [];
+                        $fechaInicio = $get('Fecha_inicio');
+                        $fechaFin = $get('Fecha_fin');
+
+                        if (! $fechaInicio || ! $fechaFin) {
+                            $set('Precio_total', 0);
+                            return;
+                        }
+                    
+                        $inicio = Carbon::parse($fechaInicio);
+                        $fin = Carbon::parse($fechaFin);
+                        $horas = $inicio->diffInHours($fin);
+                        $dias = max(1, ceil($horas / 24));
+                    
+                        $totalEquipos = collect($detalles)
+                            ->sum(fn ($d) => (float) ($d['Precio_equipo'] ?? 0));
+                    
+                        $set('Precio_total', $totalEquipos * $dias);
+                }),
+            ])->columnSpan(4)
             ->extraAttributes(['class' => 'bg-blue-50 rounded-xl shadow-sm p-4 border border-blue-100'])
             ->collapsible(),
 
@@ -209,9 +229,9 @@ class ArriendoForm
                     ->label('Total del arriendo')
                     ->prefix('$')
                     ->numeric()
-                    ->readOnly(),])->columnSpan(2),
+                    ->readOnly(),])->columnSpan(4),
             ])
-            ->extraAttributes(['class' => 'bg-blue-100 rounded-xl shadow-sm p-4 border border-blue-200']),
-        ]);
+            ->extraAttributes(['class' => 'bg-blue-100 rounded-xl shadow-sm p-4 border border-blue-200'])
+        ;
     }
 }
