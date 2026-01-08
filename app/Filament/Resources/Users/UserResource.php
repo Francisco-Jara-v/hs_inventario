@@ -13,10 +13,20 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class UserResource extends Resource
 {
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()?->hasAnyRole(['admin', 'jefe']);
+    }
     protected static ?string $model = User::class;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Administración';
+
+    protected static ?string $navigationLabel = 'Usuarios';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUser;
 

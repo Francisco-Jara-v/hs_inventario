@@ -14,6 +14,7 @@ class Cliente extends Model
     protected $fillable = [
         'Empresa',
         'Rut',
+        'Giro',
         'Telefono',
         'Correo',
         'Direccion',

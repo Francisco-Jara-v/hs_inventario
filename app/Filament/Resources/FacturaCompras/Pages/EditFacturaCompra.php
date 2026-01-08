@@ -14,7 +14,7 @@ class EditFacturaCompra extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            viewAction::make(),
             DeleteAction::make(),
         ];
     }

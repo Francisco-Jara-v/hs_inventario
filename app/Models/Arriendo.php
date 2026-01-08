@@ -15,7 +15,13 @@ class Arriendo extends Model
     public $incrementing = true; // si el contrato no es autoincremental
 
     protected $fillable = [
-        'ID_Cliente', 'Fecha_inicio', 'Fecha_fin', 'Guia_Despacho', 'Precio_total', 'Estado', 'Observaciones'
+        'ID_Cliente',
+        'Fecha_inicio', 
+        'Fecha_fin', 
+        'Guia_Despacho', 
+        'Precio_total', 
+        'Estado', 
+        'Observaciones'
     ];
 
     public function cliente()

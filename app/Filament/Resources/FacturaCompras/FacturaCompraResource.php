@@ -15,12 +15,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Filament\Navigation\NavigationGroup;
+use UnitEnum;
+
 
 class FacturaCompraResource extends Resource
 {
     protected static ?string $model = FacturaCompra::class;
+    
+    protected static string | UnitEnum | null $navigationGroup = 'Administración';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static ?string $navigationLabel = 'Registro de Compras';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+
 
     protected static ?string $recordTitleAttribute = 'folio';
 
@@ -50,7 +57,7 @@ class FacturaCompraResource extends Resource
     {
         return [
             'index' => ListFacturaCompras::route('/'),
-            'registrar' => CreateFacturaCompra::route('/create'),
+            'create' => CreateFacturaCompra::route('/create'),
             'view' => ViewFacturaCompra::route('/{record}'),
             'editar' => EditFacturaCompra::route('/{record}/edit'),
         ];
