@@ -17,11 +17,15 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class EquiposResource extends Resource
 {
     protected static ?string $model = Equipos::class;
 
+    protected static string | UnitEnum | null $navigationGroup = 'Inventario';
+
+    protected static ?string $navigationLabel = 'Equipos';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedWrenchScrewdriver;
 
     protected static ?string $recordTitleAttribute = 'Equipos';

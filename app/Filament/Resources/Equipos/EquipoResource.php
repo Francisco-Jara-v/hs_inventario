@@ -20,10 +20,13 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class EquipoResource extends Resource
 {
     protected static ?string $model = Equipo::class;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Inventario';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

@@ -15,6 +15,8 @@ class ClienteForm
                     ->required(),
                 TextInput::make('Rut')
                     ->required(),
+                TextInput::make('Giro')
+                    ->default(null),    
                 TextInput::make('Telefono')
                     ->default(null),
                 TextInput::make('Correo')
