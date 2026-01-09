@@ -24,9 +24,19 @@ WORKDIR /app
 # Copiar proyecto
 COPY . .
 
+
+    # Crear carpetas necesarias para Laravel
+RUN mkdir -p storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
+# Permisos
+RUN chmod -R 775 storage bootstrap/cache
+
 # Instalar dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
-
 # Permisos
 RUN chmod -R 775 storage bootstrap/cache
 
