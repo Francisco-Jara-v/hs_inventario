@@ -11,7 +11,7 @@ pdo_mysql = true
 
 [phases.build]
 cmds = [
-  "composer install --no-dev --optimize-autoloader",
+  "composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-intl --ignore-platform-req=ext-zip --ignore-platform-req=ext-gd",
   "php artisan key:generate || true",
   "php artisan storage:link || true",
   "php artisan migrate --force || true",
