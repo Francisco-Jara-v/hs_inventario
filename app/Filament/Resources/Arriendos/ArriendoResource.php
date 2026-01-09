@@ -54,7 +54,7 @@ return $schema;
     {
         return [
             'index' => ListArriendos::route('/'),
-            'registrar' => CreateArriendo::route('/create'),
+            'create' => CreateArriendo::route('/create'),
             'view' => ViewArriendo::route('/{record}'),
             'edit' => EditArriendo::route('/{record}/edit'),
         ];
