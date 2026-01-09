@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,6 +30,14 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->renderHook(
+                PanelsRenderHook::FOOTER,
+                fn () => Blade::render('
+                    <div align="center" class="text-center text-sm text-gray-500 py-4">
+                        © {{ date("Y") }} Hydraulic Service. Plataforma de inventario y             administración interna · Área de Tecnologías de la Información
+                    </div>
+                ')
+            )
             ->brandLogo(asset('images/a.png'))
             ->brandLogoHeight('54px')
             ->brandName('HS Inventario')
@@ -35,10 +45,11 @@ class AdminPanelProvider extends PanelProvider
 
             ->globalSearch(false)
             ->login()
-            
+
             ->colors([
                 'primary' => Color::Amber,
             ])
+
 
 
      
@@ -66,5 +77,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
     }
 }
