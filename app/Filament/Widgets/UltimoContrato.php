@@ -27,4 +27,5 @@ class UltimoContrato extends BaseWidget
             Tables\Columns\TextColumn::make('Precio_total')->label('Monto Total')->money('CLP', true),
         ];
     }
+    
 }

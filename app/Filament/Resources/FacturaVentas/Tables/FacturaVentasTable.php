@@ -55,7 +55,8 @@ class FacturaVentasTable
                     ->colors([
                         'warning' => 'EMITIDA',
                         'success' => 'PAGADA',
-                        'danger' => 'ANULADA',
+                        'gray' => 'ANULADA',
+                        'danger' => 'VENCIDA'
                     ]),
             ])
             ->filters([

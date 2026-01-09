@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\FacturaVentaDetalle;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -60,6 +61,19 @@ class FacturaVenta extends Model
     public function scopeEmitidas($query)
     {
         return $query->where('estado', 'EMITIDA');
+    }
+
+    public function getEstadoCalculadoAttribute(): string
+    {
+        if ($this->estado === 'PAGADA' || $this->estado === 'ANULADA') {
+            return $this->estado;
+        }
+    
+        if ($this->fecha_vencimiento && Carbon::now()->gt($this->fecha_vencimiento)) {
+            return 'VENCIDA';
+        }
+    
+        return $this->estado; // PENDIENTE
     }
 
     public function getPeriodoAttribute()

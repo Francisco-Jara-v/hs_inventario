@@ -11,12 +11,24 @@ use App\Models\Cabezal;
 use App\Models\Cilindro;
 use App\Models\Pistola;
 use App\Models\Dado;
+use App\Models\FacturaVenta;
 
 class ContratosStats extends BaseWidget
 {
     protected function getStats(): array
     {
         return [
+
+            Stat::make('Facturas Activas', FacturaVenta::where('Estado', 'EMITIDA')->count())
+                ->description('Facturas de ventas pendiente de pago')
+                ->icon('heroicon-o-clipboard-document-check')
+                ->color('gray'),
+
+            /*Stat::make('Facturas Vencidas', FacturaVenta::where('Estado', 'VENCIDA')->count())
+                ->description('Facturas de ventas vencidas')
+                ->icon('heroicon-o-clipboard-document-check')
+                ->color('danger'),*/
+
             Stat::make('Contratos Activos', Arriendo::where('Estado', 'En curso')->count())
                 ->description('Actualmente en arriendo')
                 ->icon('heroicon-o-clipboard-document-check')
