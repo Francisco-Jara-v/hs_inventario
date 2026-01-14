@@ -59,7 +59,7 @@ class FacturaCompraResource extends Resource
             'index' => ListFacturaCompras::route('/'),
             'create' => CreateFacturaCompra::route('/create'),
             'view' => ViewFacturaCompra::route('/{record}'),
-            'editar' => EditFacturaCompra::route('/{record}/edit'),
+            'edit' => EditFacturaCompra::route('/{record}/edit'),
         ];
     }
 }

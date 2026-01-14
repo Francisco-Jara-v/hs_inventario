@@ -9,7 +9,8 @@ use Filament\Forms\Components\{
     TextInput,
     DatePicker,
     Repeater,
-    Textarea
+    Textarea,
+    CheckBox
 };
 use Filament\Forms\Get;
 use App\Models\Cliente;
@@ -163,8 +164,18 @@ class FacturaVentaForm
                                 $set('../../total', round($neto + $iva));
                             })
                             ->schema([
-                                TextInput::make('descripcion')->required(),
-
+                                TextInput::make('descripcion')
+                                ->required(),
+                                Checkbox::make('tiene_detalle')
+                                ->label('Agregar línea de detalle')
+                                ->inline(false)
+                                //->reactive()
+                                ->dehydrated(false)
+                                    ->afterStateHydrated(function ($state, $set, $get) {
+                                        if (filled($get('detalle'))) {
+                                            $set('tiene_detalle', true);
+                                        }
+                                    }),
                                 TextInput::make('cantidad')
                                     ->numeric()
                                     ->default(1)
@@ -184,8 +195,15 @@ class FacturaVentaForm
                                     ->numeric()
                                     ->disabled()
                                     ->dehydrated(),
+                                Textarea::make('detalle')
+                                ->label('Detalle')
+                                ->visible(fn ($get) =>
+                                    $get('tiene_detalle') === true
+                                )
+                                ->columnSpanFull()
+                                ->dehydrated(fn ($get) => filled($get('detalle')))
                             ])
-                            ->columns(4)
+                            ->columns(5)
                             ->defaultItems(1)
                             ->addAction(function (callable $set, callable $get) {
                                     $neto = collect($get('detalles'))->sum(fn ($item) =>
