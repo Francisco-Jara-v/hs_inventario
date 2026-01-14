@@ -24,12 +24,21 @@ class FacturaVentasTable
     {
         return $table
             ->columns([
+                
                 TextColumn::make('fecha_emision')
                     ->label('Fecha Emisión')
+                    ->date('d-m-Y')
                     ->sortable(),
+                
                 TextColumn::make('periodo')
                     ->label('Periodo')
-                    ->sortable(),
+                    ->state(fn ($record) => $record->fecha_emision)
+                    ->sortable(query: function ($query, $direction) {
+                        $query->orderBy('fecha_emision', $direction);
+                    })
+                    ->formatStateUsing(fn ($state) =>
+                        Carbon::parse($state)->translatedFormat('F Y')
+                    ),
                 TextColumn::make('tipo_documento')
                     ->label('Tipo de Documento')
                     ->sortable()
