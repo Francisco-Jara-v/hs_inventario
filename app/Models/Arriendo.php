@@ -38,7 +38,7 @@ class Arriendo extends Model
 {
     static::updated(function ($arriendo) {
 
-        if ($arriendo->isDirty('Estado') && $arriendo->Estado === 'Finalizado') {
+        if ($arriendo->isDirty('Estado') && $arriendo->Estado !== 'En curso') {
 
             foreach ($arriendo->detalles as $detalle) {
 

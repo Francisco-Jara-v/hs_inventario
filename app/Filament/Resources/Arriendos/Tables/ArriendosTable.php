@@ -75,7 +75,7 @@ class ArriendosTable
                 ->icon('heroicon-o-check-circle')
                 ->color('warning')
                 ->requiresConfirmation()
-                ->visible(fn($record) => $record->Estado !== 'Finalizado')
+                ->visible(fn($record) => $record->Estado === 'En curso')
                 ->action(function($record){
                     $ahoraChile = Carbon::now('America/Santiago');
                     $record->update(['Estado' => 'Finalizado',
@@ -103,6 +103,20 @@ class ArriendosTable
                     ->success()
                     ->body("El contrato #{$record->Contrato} ha sido marcado como finalizado")
                     ->send();
+
+                }),
+                \filament\Actions\Action::make('cancelar')
+                ->label('Cancelar')
+                ->icon('heroicon-o-x-circle')
+                ->color('danger')
+                ->requiresConfirmation()
+                ->modalHeading('Cancelar Arriendo')
+                ->modalDescription('¿Estás seguro de cancelar este arriendo?. Esta acción no se puede deshacer.')
+                ->visible(fn ($record) => $record->Estado === 'En curso')
+                ->action(function ($record) {
+                    $record->update([
+                        'Estado' => 'Cancelado',
+                    ]);
                 }),
             ])
             ->toolbarActions([
