@@ -21,6 +21,7 @@ class ArriendosTable
     {
         return $table
             ->columns([
+
                 TextColumn::make('cliente.Empresa')
                     ->label('Cliente')
                     ->sortable()
@@ -53,11 +54,13 @@ class ArriendosTable
                         'warning' => 'Finalizado',
                     ]),
             ])
+            ->recordUrl(null)
 
             ->filters([
                 //
             ])
             ->recordActions([
+
                 \Filament\Actions\Action::make('ver_pdf')
                 ->label('Ver contrato')
                 
@@ -118,6 +121,7 @@ class ArriendosTable
                         'Estado' => 'Cancelado',
                     ]);
                 }),
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
