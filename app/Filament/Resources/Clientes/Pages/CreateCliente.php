@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCliente extends CreateRecord
 {
     protected static string $resource = ClienteResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

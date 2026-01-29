@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateBomba extends CreateRecord
 {
     protected static string $resource = BombaResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

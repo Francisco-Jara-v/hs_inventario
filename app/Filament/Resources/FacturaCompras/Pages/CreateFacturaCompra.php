@@ -9,5 +9,10 @@ use Filament\Actions;
 class CreateFacturaCompra extends CreateRecord
 {
     protected static string $resource = FacturaCompraResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 
 }

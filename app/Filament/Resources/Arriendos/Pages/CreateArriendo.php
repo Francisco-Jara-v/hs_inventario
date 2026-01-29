@@ -13,6 +13,12 @@ class CreateArriendo extends CreateRecord
 {
     protected static string $resource = ArriendoResource::class;
 
+    //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function afterCreate(): void
     {
         $arriendo = $this->record; // Registro recién creado

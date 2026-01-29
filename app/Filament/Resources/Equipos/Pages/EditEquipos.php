@@ -12,6 +12,11 @@ use Filament\Resources\Pages\EditRecord;
 class EditEquipos extends EditRecord
 {
     protected static string $resource = EquiposResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 
     protected function getHeaderActions(): array
     {

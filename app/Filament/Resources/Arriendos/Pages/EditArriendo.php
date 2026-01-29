@@ -11,6 +11,11 @@ class EditArriendo extends EditRecord
 {
     protected static string $resource = ArriendoResource::class;
 
+    //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
     protected function getHeaderActions(): array
     {
         return [

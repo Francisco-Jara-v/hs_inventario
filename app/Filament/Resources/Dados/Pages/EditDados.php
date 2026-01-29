@@ -13,6 +13,12 @@ class EditDados extends EditRecord
 {
     protected static string $resource = DadosResource::class;
 
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function getHeaderActions(): array
     {
         return [

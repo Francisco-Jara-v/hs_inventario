@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePistolas extends CreateRecord
 {
     protected static string $resource = PistolasResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

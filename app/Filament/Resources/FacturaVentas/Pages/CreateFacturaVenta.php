@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFacturaVenta extends CreateRecord
 {
     protected static string $resource = FacturaVentaResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

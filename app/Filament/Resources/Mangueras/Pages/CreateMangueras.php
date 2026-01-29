@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateMangueras extends CreateRecord
 {
     protected static string $resource = ManguerasResource::class;
+        //FUNCION PARA REDIRECCIONAR AL INDEX DEL MODULO
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
