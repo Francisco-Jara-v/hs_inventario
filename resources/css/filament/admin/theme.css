@@ -1,11 +1,306 @@
-body {
-    background-image: url("/images/18791.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* =========================================================
+   🔵 MODO CLARO – SOFT BLUE (Clean / Airy)
+========================================================= */
+:root {
+    --blue-50:  #f5f9ff;
+    --blue-100: #eaf1ff;
+    --blue-200: #d6e4ff;
+    --blue-300: #b8d0ff;
+    --blue-400: #8fb3ff;
+    --blue-500: #5f8cff;
+    --blue-600: #3b6eea;
+
+    --bg-main: #f8fbff;
+    --surface: #ffffff;
+
+    --ink-main: #1e2a44;
+    --ink-soft: #5b6b8a;
 }
 
-/* opcional: aclarar el fondo detrás de las cards */
-main {
-    background-color: rgba(255, 255, 255, 0.9);
+/* =========================================================
+   🌙 MODO OSCURO – DARK BLUE
+========================================================= */
+.dark {
+    --blue-50:  #0f1a33;
+    --blue-100: #152044;
+    --blue-200: #1d2c5c;
+    --blue-300: #2a3d7a;
+    --blue-400: #3b57a6;
+    --blue-500: #4f76e8;
+    --blue-600: #6ea8ff;
+
+    --bg-main: #0b1224;
+    --surface: #101a33;
+
+    --ink-main: #e6ecff;
+    --ink-soft: #b6c4ff;
+}
+
+/* =========================================================
+   🌍 FONDO GENERAL
+========================================================= */
+body {
+    background:
+        radial-gradient(circle at top left, var(--blue-50), transparent 60%),
+        radial-gradient(circle at bottom right, var(--blue-100), transparent 60%),
+        var(--bg-main);
+    color: var(--ink-main);
+}
+
+/* =========================================================
+   ✨ TRANSICIONES GLOBALES – macOS motion
+========================================================= */
+* {
+    transition:
+        background-color .25s cubic-bezier(.4,0,.2,1),
+        box-shadow .25s cubic-bezier(.4,0,.2,1),
+        border-color .25s cubic-bezier(.4,0,.2,1),
+        color .2s ease,
+        transform .25s cubic-bezier(.4,0,.2,1);
+}
+
+/* =========================================================
+   📚 SIDEBAR – macOS pill animation (INTEGRADO)
+========================================================= */
+.fi-sidebar {
+    background-color: var(--blue-100);
+    border-right: 1px solid var(--blue-200);
+}
+
+.dark .fi-sidebar {
+    background-color: var(--surface);
+}
+
+.fi-sidebar-item {
+    position: relative;
+    border-radius: 14px;
+    padding-left: 14px;
+    overflow: hidden;
+}
+
+/* fondo animado */
+.fi-sidebar-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        var(--blue-200),
+        var(--blue-300)
+    );
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+        opacity .25s ease,
+        transform .25s cubic-bezier(.4,0,.2,1);
+    border-radius: 14px;
+    z-index: 0;
+}
+
+.fi-sidebar-item:hover::before {
+    opacity: .9;
+    transform: scale(1);
+}
+
+.fi-sidebar-item-active::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fi-sidebar-item > * {
+    position: relative;
+    z-index: 1;
+}
+
+.fi-sidebar-item:hover {
+    transform: translateX(3px);
+}
+
+.fi-sidebar-item-active {
+    transform: translateX(4px);
+}
+
+.fi-sidebar-item-label {
+    color: var(--ink-main);
+    font-weight: 500;
+}
+
+.dark .fi-sidebar-item-label {
+    color: var(--ink-soft);
+}
+
+.dark .fi-sidebar-item::before {
+    background: linear-gradient(
+        135deg,
+        var(--blue-300),
+        var(--blue-500)
+    );
+}
+
+/* =========================================================
+   🔝 TOPBAR – macOS glass
+========================================================= */
+.fi-topbar {
+    background-color: rgba(248, 251, 255, 0.72);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid var(--blue-200);
+}
+
+.dark .fi-topbar {
+    background-color: rgba(16, 26, 51, 0.72);
+}
+
+/* =========================================================
+   🧊 CARDS – floating mac
+========================================================= */
+.fi-card {
+    background-color: var(--surface);
+    border-radius: 22px;
+    box-shadow:
+        0 10px 28px rgba(79, 118, 232, 0.14),
+        0 4px 10px rgba(79, 118, 232, 0.08);
+}
+
+.fi-card:hover {
+    transform: translateY(-3px) scale(1.01);
+}
+
+.dark .fi-card {
+    box-shadow:
+        0 0 0 1px rgba(110, 168, 255, 0.12),
+        0 12px 30px rgba(110, 168, 255, 0.25);
+}
+
+/* =========================================================
+   📦 SECTIONS
+========================================================= */
+.fi-section-content {
+    background-color: var(--surface);
+    border-radius: 18px;
+    padding: 1.5rem;
+}
+
+/* =========================================================
+   🔘 BOTONES
+========================================================= */
+.fi-btn-primary {
+    background: linear-gradient(
+        135deg,
+        var(--blue-300),
+        var(--blue-500)
+    );
+    border-radius: 9999px;
+    font-weight: 600;
+
+    box-shadow: 0 6px 16px rgba(79, 118, 232, 0.35);
+}
+
+.fi-btn-primary:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(
+        135deg,
+        var(--blue-400),
+        var(--blue-600)
+    );
+}
+
+.fi-btn {
+    border-radius: 12px;
+    background-color: var(--blue-100);
+}
+
+.fi-btn:hover {
+    background-color: var(--blue-200);
+}
+
+/* =========================================================
+   ✏️ INPUTS
+========================================================= */
+.fi-input,
+.fi-select,
+.fi-textarea {
+    background-color: #fff;
+    border-radius: 14px;
+    color: var(--ink-main);
+}
+
+.fi-input:focus,
+.fi-select:focus,
+.fi-textarea:focus {
+    outline: none;
+    border-color: var(--blue-400);
+    box-shadow: 0 0 0 4px rgba(143, 179, 255, 0.25);
+}
+
+.dark .fi-input,
+.dark .fi-select,
+.dark .fi-textarea {
+    background-color: #0e162e;
+    color: var(--ink-main);
+}
+
+/* =========================================================
+   📊 TABLAS
+========================================================= */
+.fi-ta-main {
+    background-color: var(--surface);
+    border-radius: 14px;
+}
+
+.fi-ta-row:hover {
+    background-color: var(--blue-50);
+}
+
+.dark .fi-ta-row:hover {
+    background-color: #16224a;
+}
+
+/* =========================================================
+   🎯 FOCUS RING – macOS
+========================================================= */
+:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(79,118,232,.35),
+        0 0 0 6px rgba(79,118,232,.15);
+    border-radius: 14px;
+}
+
+.dark :focus-visible {
+    box-shadow:
+        0 0 0 3px rgba(110,168,255,.45),
+        0 0 0 6px rgba(110,168,255,.25);
+}
+
+/* =========================================================
+   🔘 COLOR TEXTO BOTÓN PRIMARY – FIX FILAMENT v4
+========================================================= */
+
+/* MODO CLARO */
+.fi-btn-primary,
+.fi-btn-primary span,
+.fi-btn-primary .fi-btn-label {
+    color: #1e2a44;
+}
+
+/* iconos */
+.fi-btn-primary svg {
+    color: #1e2a44;
+}
+
+/* MODO OSCURO */
+.dark .fi-btn-primary,
+.dark .fi-btn-primary span,
+.dark .fi-btn-primary .fi-btn-label {
+    color: #ffffff;
+}
+
+.dark .fi-btn-primary svg {
+    color: #ffffff;
 }

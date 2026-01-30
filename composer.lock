@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f75727125f2f2d6b5e1cb58cbb8dd480",
+    "content-hash": "d9ca00c7c94f92e27ace01e6dff34dc0",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4308,6 +4308,54 @@
                 }
             ],
             "time": "2025-10-18T11:10:27+00:00"
+        },
+        {
+            "name": "octopyid/filament-palette",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OctopyID/FilamentPalette.git",
+                "reference": "84552c2a2b22e109bf8c644917a7f9fcb7e62ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OctopyID/FilamentPalette/zipball/84552c2a2b22e109bf8c644917a7f9fcb7e62ec5",
+                "reference": "84552c2a2b22e109bf8c644917a7f9fcb7e62ec5",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.3|^4|^5",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Octopy\\Filament\\Palette\\Providers\\PaletteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Octopy\\Filament\\Palette\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Supian M",
+                    "email": "supianidz@octopy.dev"
+                }
+            ],
+            "description": "Easily switch and customize the UI color palette for your FilamentPHP",
+            "support": {
+                "issues": "https://github.com/OctopyID/FilamentPalette/issues",
+                "source": "https://github.com/OctopyID/FilamentPalette/tree/v1.0.3"
+            },
+            "time": "2025-11-11T13:48:31+00:00"
         },
         {
             "name": "openspout/openspout",
@@ -12590,5 +12638,5 @@
         "php": "^8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

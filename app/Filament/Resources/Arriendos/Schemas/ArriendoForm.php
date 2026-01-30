@@ -25,15 +25,15 @@ class ArriendoForm
 {
     /** 🔹 Calcula el total automáticamente */
     public static function calcularTotalDatos(array $detalles, string $fechaInicio, string $fechaFin): float
-{
-    $inicio = Carbon::parse($fechaInicio);
-    $fin = Carbon::parse($fechaFin);
-    $horas = $inicio->diffInHours($fin);
-    $dias = max(1, ceil($horas / 24));
-
-    $totalEquipos = collect($detalles)->sum(fn($r) => floatval($r['Precio_equipo'] ?? 0));
-    return $totalEquipos * $dias;
-}
+    {
+        $inicio = Carbon::parse($fechaInicio);
+        $fin = Carbon::parse($fechaFin);
+        $horas = $inicio->diffInHours($fin);
+        $dias = max(1, ceil($horas / 24));
+    
+        $totalEquipos = collect($detalles)->sum(fn($r) => floatval($r['Precio_equipo']  ?? 0));
+        return $totalEquipos * $dias;
+    }
     public static function calcularTotal(callable $get, callable $set): void
     {
         $detalles = $get('detalles') ?? [];

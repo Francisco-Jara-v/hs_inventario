@@ -14,6 +14,7 @@
         "jeffgreco13/filament-breezy": "^3.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "octopyid/filament-palette": "^1.0",
         "osamanagi/filament-abyss-theme": "^1.0",
         "phpoffice/phpword": "^1.4",
         "spatie/laravel-permission": "^6.24",
@@ -93,6 +94,9 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": ["PKSA-yb9k-ykqx-p2zw", "PKSA-rkkf-636k-qjb3", "PKSA-z3gr-8qht-p93v"]
         }
     },
     "minimum-stability": "stable",

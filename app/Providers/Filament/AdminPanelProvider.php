@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->renderHook(
                 PanelsRenderHook::FOOTER,
                 fn () => Blade::render('
@@ -47,7 +48,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
 
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
             ])
 
 
