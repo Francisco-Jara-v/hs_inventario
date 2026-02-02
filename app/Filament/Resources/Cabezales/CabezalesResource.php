@@ -27,6 +27,8 @@ class CabezalesResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'Cabezal';
 
+    protected static ?string $modelLabel = 'Cabezales';
+
     public static function form(Schema $schema): Schema
     {
         return CabezalesForm::configure($schema);
