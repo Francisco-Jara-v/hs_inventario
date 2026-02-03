@@ -20,17 +20,21 @@ class DadosTable
                 TextColumn::make('Equipo')
                     ->searchable(),
                 TextColumn::make('Medida')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('Cuadrante')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('Cantidad_disponible')
                     ->searchable(),
                 TextColumn::make('Cantidad_arriendo')
                     ->searchable(),
                 TextColumn::make('Precio')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('Garantia')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 
             
             ])
