@@ -21,6 +21,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DateTimePicker;
 use Carbon\Carbon;
 
+
 class ArriendoForm
 {
     /** 🔹 Calcula el total automáticamente */
@@ -130,6 +131,7 @@ class ArriendoForm
                             ->options(Equipo::pluck('Nombre_equipos', 'ID_Equipos'))
                             ->reactive(),
 
+
                         Select::make('Equipo_detalle_id')
                             ->label('Equipo')
                             ->options(function (callable $get) {
@@ -155,10 +157,42 @@ class ArriendoForm
                                 };
                             })
                              ->searchable()
-                             ->extraAttributes([
+                             /*->extraAttributes([
                                 'class' => 'max-h-48 overflow-y-auto' // 48 = 12rem → caben ~10 ítems
-                                ])
+                                ])*/
                             ->reactive()
+                             ->hint(function (callable $get) {
+                                $tipo = Equipo::find($get('Equipo_id'));
+                                if (! $tipo) return null;
+                            
+                                $nombre = mb_strtolower($tipo->Nombre_equipos);
+                            
+                                // 👉 Solo DADO o MANGUERAS
+                                if (
+                                    ! str_contains($nombre, 'dado') &&
+                                    ! str_contains($nombre, 'mangueras')
+                                ) {
+                                    return null;
+                                }
+                            
+                                $modeloId = $get('Equipo_detalle_id');
+                                if (! $modeloId) return null;
+                            
+                                // 🔀 Buscar modelo según tipo
+                                $modelo = match (true) {
+                                    str_contains($nombre, 'dado') =>
+                                        Dado::find($modeloId),
+                            
+                                    str_contains($nombre, 'mangueras') =>
+                                        Mangueras::find($modeloId),
+                            
+                                    default => null,
+                                };
+                            
+                                if (! $modelo) return null;
+                            
+                                return 'Stock disponible: ' . $modelo->Cantidad_disponible;
+                            })
                             ->afterStateUpdated(function ($state, callable $set, callable $get) {
                                 $tipo = Equipo::find($get('Equipo_id'));
                                 if (! $tipo) return;
