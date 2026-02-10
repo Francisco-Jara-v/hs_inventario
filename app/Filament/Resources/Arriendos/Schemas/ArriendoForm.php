@@ -146,11 +146,11 @@ class ArriendoForm
                                 $map = fn($items, $fn) => $items->mapWithKeys(fn($i) => [$i->id => $fn($i)])->toArray();
 
                                 return match (true) {
-                                    str_contains($nombre, 'bomba') => $map(Bomba::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo}"),
-                                    str_contains($nombre, 'cabezal') => $map(Cabezal::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo}"),
+                                    str_contains($nombre, 'bomba') => $map(Bomba::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo} - Serie {$i->Serie}"),
+                                    str_contains($nombre, 'cabezal') => $map(Cabezal::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo} - Serie {$i->Serie}"),
                                     str_contains($nombre, 'cilindro') => $map(Cilindro::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo}"),
-                                    str_contains($nombre, 'llave torque') => $map(LlavesTorque::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo}"),
-                                    str_contains($nombre, 'pistola') => $map(Pistola::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo}"),
+                                    str_contains($nombre, 'llave torque') => $map(LlavesTorque::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo} - Serie {$i->Serie}"),
+                                    str_contains($nombre, 'pistola') => $map(Pistola::where('Estado', 'En stock')->get(), fn($i) => "{$i->Equipo} {$i->Modelo} - COD {$i->Codigo} - Serie {$i->Serie}"),
                                     str_contains($nombre, 'dado') => $map(Dado::where('Cantidad_disponible', '>', 0)->get(), fn($i) => "{$i->Equipo} {$i->Medida} Cuad {$i->Cuadrante}"),
                                     str_contains($nombre, 'mangueras') => $map(Mangueras::where('Cantidad_disponible', '>', 0)->get(), fn($i) => "{$i->Equipo} Obs {$i->Observacion}"),
                                     default => [],
