@@ -31,6 +31,8 @@ class CilindroForm
                     ->default(null),
                 TextInput::make('Carrera')
                     ->default(null),
+                TextInput::make('Codigo')
+                    ->default(null),
                 TextInput::make('Precio')
                     ->required()
                     ->numeric(),

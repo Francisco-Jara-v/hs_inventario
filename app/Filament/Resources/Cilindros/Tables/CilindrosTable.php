@@ -30,6 +30,8 @@ class CilindrosTable
                     ->searchable(),
                 TextColumn::make('Carrera')
                     ->searchable(),
+                TextColumn::make('Codigo')
+                    ->searchable(),
                 TextColumn::make('Precio')
                     ->numeric()
                     ->sortable(),

@@ -20,6 +20,7 @@ class Cilindro extends Model
         'Toneladas',
         'Altura',
         'Carrera',
+        'Codigo',
         'Precio',
         'Garantia',
         'Estado',
