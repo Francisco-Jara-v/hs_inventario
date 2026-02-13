@@ -29,8 +29,12 @@ class FacturaVentasTable
                     ->label('Fecha Emisión')
                     ->date('d-m-Y')
                     ->sortable(),
-                
-                TextColumn::make('periodo')
+                TextColumn::make('fecha_vencimiento')
+                    ->label('Fecha Vencimiento')
+                    ->date('d-m-Y')
+                    ->sortable(),
+
+                /*TextColumn::make('periodo')
                     ->label('Periodo')
                     ->state(fn ($record) => $record->fecha_emision)
                     ->sortable(query: function ($query, $direction) {
@@ -38,7 +42,7 @@ class FacturaVentasTable
                     })
                     ->formatStateUsing(fn ($state) =>
                         Carbon::parse($state)->translatedFormat('F Y')
-                    ),
+                    ),*/
                 TextColumn::make('tipo_documento')
                     ->label('Tipo de Documento')
                     ->sortable()
@@ -66,7 +70,8 @@ class FacturaVentasTable
                         'success' => 'PAGADA',
                         'gray' => 'ANULADA',
                         'danger' => 'VENCIDA'
-                    ]),
+                    ])
+                    ->sortable(),
             ])
             ->filters([
                 //
