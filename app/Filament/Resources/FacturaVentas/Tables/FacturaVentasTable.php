@@ -29,6 +29,7 @@ class FacturaVentasTable
                     ->label('Fecha Emisión')
                     ->date('d-m-Y')
                     ->sortable(),
+
                 TextColumn::make('fecha_vencimiento')
                     ->label('Fecha Vencimiento')
                     ->date('d-m-Y')
@@ -79,7 +80,7 @@ class FacturaVentasTable
             ->recordActions([
                 viewAction::make(),
                 \filament\Actions\Action::make('pagar')
-                ->label('Pagar')
+                ->label('Efectuar Pago')
                 ->icon('heroicon-o-currency-dollar')
                 ->color('success')
                 ->visible(fn ($record) => $record->estado === 'EMITIDA')
